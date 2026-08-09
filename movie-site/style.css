@@ -1498,3 +1498,12 @@ body {
     color: white;
 }
 
+/* App Icon Responsive Sizes */
+.nav-app-icon { width: 34px; height: 34px; }
+@media (min-width: 768px) { .nav-app-icon { width: 44px; height: 44px; } }
+@media (min-width: 1024px) { .nav-app-icon { width: 54px; height: 54px; } }
+
+.download-app-icon { width: 64px; height: 64px; }
+@media (min-width: 768px) { .download-app-icon { width: 84px; height: 84px; } }
+@media (min-width: 1024px) { .download-app-icon { width: 110px; height: 110px; } }
+
