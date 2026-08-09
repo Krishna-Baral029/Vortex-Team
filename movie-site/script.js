@@ -178,5 +178,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Download Button Animation
+    const downloadBtn = document.getElementById('apkDownloadBtn');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', function(e) {
+            // Let the native download happen, but animate the button
+            const btn = this;
+            if (btn.classList.contains('is-downloading')) return;
+            
+            btn.classList.add('is-downloading');
+            
+            const textSpan = btn.querySelector('.btn-text');
+            const downIcon = btn.querySelector('.download-icon');
+            const spinner = btn.querySelector('.spinner-icon');
+            const checkIcon = btn.querySelector('.check-icon');
+            
+            textSpan.textContent = "Downloading...";
+            downIcon.style.display = 'none';
+            spinner.style.display = 'block';
+            checkIcon.style.display = 'none';
+            
+            setTimeout(() => {
+                textSpan.textContent = "Downloaded!";
+                spinner.style.display = 'none';
+                checkIcon.style.display = 'block';
+                
+                setTimeout(() => {
+                    btn.classList.remove('is-downloading');
+                    textSpan.textContent = "Download Vortex APK";
+                    checkIcon.style.display = 'none';
+                    downIcon.style.display = 'block';
+                }, 3000);
+            }, 2000);
+        });
+    }
 });
 

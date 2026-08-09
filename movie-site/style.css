@@ -1507,3 +1507,7 @@ body {
 @media (min-width: 768px) { .download-app-icon { width: 84px; height: 84px; } }
 @media (min-width: 1024px) { .download-app-icon { width: 110px; height: 110px; } }
 
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
