@@ -1,9 +1,6 @@
-/* ═══════════════════════════════════════════════════════
-   StreamVault — Premium Movie Streaming Website
-   Design System: Dark Mode, Glassmorphism, Netflix vibes
-   ═══════════════════════════════════════════════════════ */
 
-/* ── Reset & Root ── */
+
+
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -11,13 +8,13 @@
 }
 
 :root {
-    /* Brand Colors */
+    
     --primary: #e50914;
     --primary-hover: #ff1a25;
     --primary-glow: rgba(229, 9, 20, 0.4);
     --accent: #f5c518;
     
-    /* Surfaces */
+    
     --bg-deep: #0a0a0f;
     --bg-dark: #0f0f18;
     --bg-card: rgba(20, 20, 35, 0.6);
@@ -25,21 +22,21 @@
     --bg-glass: rgba(255, 255, 255, 0.04);
     --bg-glass-hover: rgba(255, 255, 255, 0.08);
     
-    /* Text */
+    
     --text-primary: #f0f0f5;
     --text-secondary: #8b8b9e;
     --text-muted: #5a5a6e;
     
-    /* Borders */
+    
     --border: rgba(255, 255, 255, 0.06);
     --border-hover: rgba(255, 255, 255, 0.12);
     
-    /* Gradients */
+    
     --gradient-primary: linear-gradient(135deg, #e50914, #ff6b35);
     --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --gradient-text: linear-gradient(135deg, #e50914, #f5c518, #e50914);
     
-    /* Sizing */
+    
     --nav-height: 72px;
     --container-max: 1280px;
     --radius-sm: 8px;
@@ -47,7 +44,7 @@
     --radius-lg: 20px;
     --radius-xl: 28px;
     
-    /* Shadows */
+    
     --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
     --shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.6);
     --shadow-glow: 0 0 60px var(--primary-glow);
@@ -96,7 +93,7 @@ body {
     50% { background-position: 200% center; }
 }
 
-/* ── NAVBAR ── */
+
 .navbar {
     position: fixed;
     top: 0;
@@ -253,7 +250,7 @@ body {
     font-weight: 500;
 }
 
-/* ── HERO ── */
+
 .hero {
     min-height: 100vh;
     display: flex;
@@ -412,7 +409,7 @@ body {
     background: var(--border);
 }
 
-/* ── Hero Visual (Phone Mockup) ── */
+
 .hero-visual {
     flex: 0 0 380px;
     position: relative;
@@ -506,7 +503,7 @@ body {
     50% { transform: translateY(-12px); }
 }
 
-/* ── MOVIES GRID ── */
+
 .movies-section {
     background: var(--bg-dark);
     position: relative;
@@ -574,14 +571,33 @@ body {
     overflow: hidden;
     background: var(--bg-card);
     border: 1px solid var(--border);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     cursor: pointer;
+    position: relative;
+}
+
+.movie-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+    transform: skewX(-20deg);
+    transition: all 0.7s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.movie-card:hover::after {
+    left: 150%;
 }
 
 .movie-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: var(--shadow-hover);
-    border-color: var(--border-hover);
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 20px 40px rgba(229, 9, 20, 0.2), var(--shadow-hover);
+    border-color: rgba(229, 9, 20, 0.3);
 }
 
 .movie-poster {
@@ -720,7 +736,7 @@ body {
     font-weight: 500;
 }
 
-/* ── Continue Watching ── */
+
 .continue-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -728,53 +744,107 @@ body {
 }
 
 .continue-card {
-    border-radius: var(--radius-md);
-    overflow: hidden;
+    display: flex;
+    align-items: center;
     background: var(--bg-card);
     border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    gap: 16px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.continue-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+    transform: skewX(-20deg);
+    transition: all 0.7s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.continue-card:hover::after {
+    left: 150%;
 }
 
 .continue-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--border-hover);
-    box-shadow: var(--shadow-card);
+    transform: translateY(-6px);
+    border-color: rgba(229, 9, 20, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(229, 9, 20, 0.1);
+    background: var(--bg-card-hover);
 }
 
-.continue-card img {
-    width: 100%;
+.continue-thumb {
+    width: 100px;
     height: 140px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.continue-thumb img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.continue-card:hover .continue-thumb img {
+    transform: scale(1.1);
+}
+
+.continue-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.continue-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+    font-family: 'Outfit', sans-serif;
+    transition: color 0.3s;
+}
+
+.continue-card:hover .continue-title {
+    color: var(--primary);
+}
+
+.continue-time {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 14px;
 }
 
 .continue-progress {
-    height: 3px;
+    height: 4px;
     background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    overflow: hidden;
 }
 
 .progress-bar {
     height: 100%;
     background: var(--primary);
     border-radius: 2px;
+    box-shadow: 0 0 10px var(--primary-glow);
     transition: width 0.3s;
 }
 
-.continue-info {
-    padding: 12px 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.85rem;
-    font-weight: 500;
-}
 
-.continue-time {
-    color: var(--text-muted);
-    font-size: 0.75rem;
-}
-
-/* ── FEATURES ── */
 .features-section {
     background: var(--bg-deep);
 }
@@ -839,7 +909,7 @@ body {
     line-height: 1.6;
 }
 
-/* ── DOWNLOAD CTA ── */
+
 .download-section {
     background: var(--bg-dark);
     overflow: hidden;
@@ -926,7 +996,7 @@ body {
     flex-shrink: 0;
 }
 
-/* ── Download Visual (App Preview) ── */
+
 .download-visual {
     flex: 0 0 360px;
     position: relative;
@@ -1066,7 +1136,7 @@ body {
     left: -30px;
 }
 
-/* ── TESTIMONIALS ── */
+
 .testimonials-section {
     background: var(--bg-deep);
 }
@@ -1137,7 +1207,7 @@ body {
     color: var(--text-muted);
 }
 
-/* ── FOOTER ── */
+
 .footer {
     background: var(--bg-dark);
     padding: 80px 0 30px;
@@ -1220,7 +1290,7 @@ body {
     font-size: 0.8rem;
 }
 
-/* ── ANIMATIONS ── */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -1254,7 +1324,7 @@ body {
     }
 }
 
-/* Scroll-reveal animation */
+
 .reveal {
     opacity: 0;
     transform: translateY(40px);
@@ -1266,7 +1336,7 @@ body {
     transform: translateY(0);
 }
 
-/* ── RESPONSIVE ── */
+
 @media (max-width: 1024px) {
     .hero {
         flex-direction: column;
@@ -1402,7 +1472,7 @@ body {
     }
 }
 
-/* ── Scrollbar Styling ── */
+
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -1420,8 +1490,9 @@ body {
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* ── Selection ── */
+
 ::selection {
     background: var(--primary);
     color: white;
 }
+

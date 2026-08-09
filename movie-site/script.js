@@ -1,12 +1,7 @@
-/* ═══════════════════════════════════════════════════════
-   StreamVault — Interactive JS
-   Navbar scroll, counter animation, scroll reveal,
-   mobile menu, and poster rotation
-   ═══════════════════════════════════════════════════════ */
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ── Navbar Scroll Effect ──
     const navbar = document.getElementById('navbar');
     let lastScroll = 0;
 
@@ -22,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
         lastScroll = currentScroll;
     }, { passive: true });
 
-    // ── Mobile Menu Toggle ──
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
 
@@ -32,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileMenuBtn.classList.toggle('active');
         });
 
-        // Close mobile menu on link click
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('active');
@@ -41,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ── Smooth Scroll for Nav Links ──
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -54,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ── Animated Counter ──
     const counters = document.querySelectorAll('.stat-number');
     let counterAnimated = false;
 
@@ -82,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Trigger counter when hero stats are in view
     const statsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -96,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
         statsObserver.observe(statsSection);
     }
 
-    // ── Scroll Reveal Animation ──
     const revealElements = document.querySelectorAll(
         '.movie-card, .feature-card, .testimonial-card, .continue-card, .download-wrapper, .section-header'
     );
@@ -106,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                // Stagger the animation
+
                 setTimeout(() => {
                     entry.target.classList.add('visible');
                 }, index * 80);
@@ -120,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // ── Phone Poster Rotation ──
     const posters = [
         'images/shadow_protocol.png',
         'images/neon_horizon.png',
@@ -143,11 +131,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
 
-    // ── Play Button Click Handler ──
     document.querySelectorAll('.play-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            // Scroll to download section
+
             const downloadSection = document.getElementById('download');
             if (downloadSection) {
                 const offset = 80;
@@ -157,7 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ── Movie Card Click → Download ──
     document.querySelectorAll('.movie-card').forEach(card => {
         card.addEventListener('click', () => {
             const downloadSection = document.getElementById('download');
@@ -169,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ── Parallax on Hero Visual ──
     const heroVisual = document.querySelector('.hero-visual');
     
     if (heroVisual && window.innerWidth > 768) {
@@ -180,7 +165,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     }
 
-    // ── Cursor Glow Effect on Cards ──
     document.querySelectorAll('.feature-card, .movie-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
@@ -195,3 +179,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
