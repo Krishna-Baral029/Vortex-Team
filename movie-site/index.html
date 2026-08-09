@@ -85,18 +85,33 @@
         </div>
         <div class="hero-visual">
             <div class="phone-mockup">
-                <div class="phone-screen">
-                    <img src="images/shadow_protocol.png" alt="Shadow Protocol" class="phone-poster active" id="phonePoster">
+                <div class="phone-screen" style="display: flex; flex-direction: column; background: #0d0d1a;">
+                    <div class="app-header-bar" style="padding: 24px 20px 16px;">
+                        <span class="app-logo-mini" style="font-size: 1rem;">▶ StreamVault</span>
+                        <span class="app-search" style="font-size: 1rem;">🔍</span>
+                    </div>
+                    <div class="app-featured" style="height: 260px; margin: 0 16px 20px; flex-shrink: 0;">
+                        <img src="images/shadow_protocol.png" alt="Shadow Protocol" id="phonePoster" style="object-position: center top;">
+                        <div class="app-featured-info" style="padding: 20px 16px;">
+                            <span class="app-tag">Featured</span>
+                            <span class="app-movie-name" id="phonePosterName">Shadow Protocol</span>
+                            <button class="app-watch-btn">▶ Watch Now</button>
+                        </div>
+                    </div>
+                    <div class="app-row-label" style="padding: 0 16px; margin-bottom: 12px; font-weight: 600;">Trending Now</div>
+                    <div class="app-thumbs" style="padding: 0 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                        <div style="aspect-ratio: 2/3; overflow: hidden; border-radius: 8px;"><img src="images/neon_horizon.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Trending"></div>
+                        <div style="aspect-ratio: 2/3; overflow: hidden; border-radius: 8px;"><img src="images/the_hollow.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Trending"></div>
+                        <div style="aspect-ratio: 2/3; overflow: hidden; border-radius: 8px;"><img src="images/last_ember.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Trending"></div>
+                    </div>
                 </div>
                 <div class="phone-notch"></div>
             </div>
-            <div class="floating-card card-1">
-                <img src="images/neon_horizon.png" alt="Neon Horizon">
-                <span>Trending #1</span>
+            <div class="floating-card card-1" style="padding: 6px 12px; border-radius: 50px;">
+                <span style="font-size: 0.85rem;">🔥 Trending #1</span>
             </div>
-            <div class="floating-card card-2">
-                <img src="images/the_hollow.png" alt="The Hollow">
-                <span>New Release</span>
+            <div class="floating-card card-2" style="padding: 6px 12px; border-radius: 50px;">
+                <span style="font-size: 0.85rem;">✨ New Release</span>
             </div>
         </div>
     </section>
