@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -86,32 +86,41 @@
         <div class="hero-visual">
             <div class="phone-mockup">
                 <div class="phone-screen" style="display: flex; flex-direction: column; background: #0d0d1a;">
-                    <div class="app-header-bar" style="padding: 24px 20px 16px;">
-                        <span class="app-logo-mini" style="font-size: 1rem;">▶ StreamVault</span>
-                        <span class="app-search" style="font-size: 1rem;">🔍</span>
+                    <div class="app-header-bar" style="padding: 24px 18px 12px; display: flex; justify-content: space-between; align-items: center;">
+                        <span class="app-logo-mini" style="font-size: 0.9rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 6px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            StreamVault
+                        </span>
+                        <span class="app-search" style="color: var(--text-muted); display: flex; align-items: center;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        </span>
                     </div>
-                    <div class="app-featured" style="height: 260px; margin: 0 16px 20px; flex-shrink: 0;">
-                        <img src="images/shadow_protocol.png" alt="Shadow Protocol" id="phonePoster" style="object-position: center top;">
-                        <div class="app-featured-info" style="padding: 20px 16px;">
-                            <span class="app-tag">Featured</span>
-                            <span class="app-movie-name" id="phonePosterName">Shadow Protocol</span>
-                            <button class="app-watch-btn">▶ Watch Now</button>
+                    <div class="app-featured" style="height: 250px; margin: 0 14px 16px; flex-shrink: 0; position: relative; border-radius: 12px; overflow: hidden;">
+                        <img src="images/shadow_protocol.png" alt="Shadow Protocol" id="phonePoster" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;">
+                        <div class="app-featured-info" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 14px; background: linear-gradient(to top, rgba(13,13,26,0.95) 0%, rgba(13,13,26,0.4) 70%, transparent 100%); display: flex; justify-content: space-between; align-items: center;">
+                            <span class="app-tag" style="background: var(--primary); color: #fff; padding: 3px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Featured</span>
+                            <button class="app-watch-btn" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 6px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                Watch
+                            </button>
                         </div>
                     </div>
-                    <div class="app-row-label" style="padding: 0 16px; margin-bottom: 12px; font-weight: 600;">Trending Now</div>
-                    <div class="app-thumbs" style="padding: 0 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
-                        <div style="aspect-ratio: 2/3; overflow: hidden; border-radius: 8px;"><img src="images/neon_horizon.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Trending"></div>
-                        <div style="aspect-ratio: 2/3; overflow: hidden; border-radius: 8px;"><img src="images/the_hollow.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Trending"></div>
-                        <div style="aspect-ratio: 2/3; overflow: hidden; border-radius: 8px;"><img src="images/last_ember.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Trending"></div>
+                    <div class="app-row-label" style="padding: 0 14px; margin-bottom: 10px; font-size: 0.85rem; font-weight: 700; color: var(--text);">Trending Now</div>
+                    <div class="app-thumbs" style="padding: 0 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+                        <div style="aspect-ratio: 2/3; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.4);"><img src="images/neon_horizon.png" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;" alt="Trending 1"></div>
+                        <div style="aspect-ratio: 2/3; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.4);"><img src="images/the_hollow.png" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;" alt="Trending 2"></div>
+                        <div style="aspect-ratio: 2/3; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.4);"><img src="images/last_ember.png" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;" alt="Trending 3"></div>
                     </div>
                 </div>
                 <div class="phone-notch"></div>
             </div>
-            <div class="floating-card card-1" style="padding: 6px 12px; border-radius: 50px;">
-                <span style="font-size: 0.85rem;">🔥 Trending #1</span>
+            <div class="floating-card card-1" style="padding: 8px 16px; border-radius: 50px; background: rgba(20,20,35,0.92); border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; gap: 8px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                <span style="font-size: 0.8rem; font-weight: 600; color: #fff;">Trending #1</span>
             </div>
-            <div class="floating-card card-2" style="padding: 6px 12px; border-radius: 50px;">
-                <span style="font-size: 0.85rem;">✨ New Release</span>
+            <div class="floating-card card-2" style="padding: 8px 16px; border-radius: 50px; background: rgba(20,20,35,0.92); border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; gap: 8px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span style="font-size: 0.8rem; font-weight: 600; color: #fff;">New Release</span>
             </div>
         </div>
     </section>
@@ -358,16 +367,23 @@
                 <div class="download-visual">
                     <div class="app-preview">
                         <div class="app-screen">
-                            <div class="app-header-bar">
-                                <span class="app-logo-mini">▶ StreamVault</span>
-                                <span class="app-search">🔍</span>
+                            <div class="app-header-bar" style="display: flex; justify-content: space-between; align-items: center;">
+                                <span class="app-logo-mini" style="color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 6px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                    StreamVault
+                                </span>
+                                <span class="app-search" style="color: var(--text-muted); display: flex; align-items: center;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                </span>
                             </div>
-                            <div class="app-featured">
-                                <img src="images/last_ember.png" alt="Featured Movie">
-                                <div class="app-featured-info">
-                                    <span class="app-tag">Featured</span>
-                                    <span class="app-movie-name">Last Ember</span>
-                                    <button class="app-watch-btn">▶ Watch Now</button>
+                            <div class="app-featured" style="position: relative; border-radius: 12px; overflow: hidden;">
+                                <img src="images/last_ember.png" alt="Featured Movie" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;">
+                                <div class="app-featured-info" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px; background: linear-gradient(to top, rgba(13,13,26,0.95) 0%, rgba(13,13,26,0.4) 70%, transparent 100%); display: flex; justify-content: space-between; align-items: center;">
+                                    <span class="app-tag" style="background: var(--primary); color: #fff; padding: 3px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Featured</span>
+                                    <button class="app-watch-btn" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 5px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                        Watch
+                                    </button>
                                 </div>
                             </div>
                             <div class="app-row-label">Trending</div>

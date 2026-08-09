@@ -1,3 +1,9 @@
 [build]
   publish = "."
   command = ""
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/server"
+  to = "/server.html"
+  status = 200

